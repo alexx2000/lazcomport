@@ -1,7 +1,7 @@
 +-------------------------------------------------+
-| ComPort Library version 4.10                    |
-| for Delphi 5, 6, 7, 2005, 2006, 2007, 2010, XE  |
-| and C++ Builder 3, 4, 5, 6                      |
+| ComPort Library version 4.12                    |
+| for Delphi 5, 6, 7, 2005, 2006, 2007, 2010, XE, |
+| C++ Builder 3, 4, 5, 6 and Lazarus 1.8          |
 |                                                 |
 | by Dejan Crnila 1998-2002                       |
 | maintained by Lars Dybdahl and Paul Doland      |
