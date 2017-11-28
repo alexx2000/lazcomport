@@ -14,7 +14,9 @@ unit CPortReg;
 interface
 
 uses
-{$IFDEF DELPHI_6_OR_HIGHER}
+{$IF DEFINED(FPC)}
+  LazIDEIntf, PropEdits, ComponentEditors,
+{$ELSEIF DEFINED(DELPHI_6_OR_HIGHER)}
   DesignIntf, DesignEditors, DesignMenus, PropertyCategories,
 {$ELSE}
   DsgnIntf,
@@ -371,7 +373,7 @@ begin
     'OnGetEscapeCodes', 'OnUnhandledCode', 'OnStrRecieved']);
   RegisterPropertiesInCategory(TVisualCategory, TComLed, ['Kind']);
 {$ENDIF}
-{$IFDEF DELPHI_6_OR_HIGHER}
+{$IF DEFINED(DELPHI_6_OR_HIGHER) AND NOT DEFINED(FPC)}
   RegisterPropertiesInCategory('Serial communication', TComPort, ['BaudRate', 'StopBits',
     'DataBits', 'Port', 'EventChar', 'Connected', 'DiscardNull', 'Events',
     'FlowControl', 'Timeouts', 'Parity', 'Buffer', 'OnAfterOpen', 'OnBeforeOpen',
