@@ -60,7 +60,8 @@
     </RunParams>
     <RequiredPackages Count="2">
       <Item1>
-        <PackageName Value="CPortLib7"/>
+        <PackageName Value="CPortLib"/>
+        <MinVersion Major="4" Minor="12" Valid="True"/>
       </Item1>
       <Item2>
         <PackageName Value="LCL"/>
