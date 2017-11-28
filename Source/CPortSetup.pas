@@ -50,7 +50,11 @@ procedure EditComPort(ComPort: TCustomComPort);
 
 implementation
 
-{$R *.DFM}
+{$IFnDEF FPC}
+  {$R *.dfm}
+{$ELSE}
+  {$R *.lfm}
+{$ENDIF}
 
 // show setup dialog
 procedure EditComPort(ComPort: TCustomComPort);

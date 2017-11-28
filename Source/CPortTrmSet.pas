@@ -46,7 +46,11 @@ procedure EditComTerminal(ComTerminal: TCustomComTerminal);
 
 implementation
 
-{$R *.DFM}
+{$IFnDEF FPC}
+  {$R *.dfm}
+{$ELSE}
+  {$R *.lfm}
+{$ENDIF}
 
 // show terminal setup dialog
 procedure EditComTerminal(ComTerminal: TCustomComTerminal);
