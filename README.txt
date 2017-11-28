@@ -42,6 +42,10 @@ E-mail: cport@pauld.ml1.net
 Brian Gochnauer
 email:brian@gochanuer.net
 
+Lazarus port
+------------------
+Alexander Koblov
+
 2. Support
 --------------------------------------------------------------------------------
 If you have any questions, suggestions, opinion or any other messages, please
@@ -95,6 +99,7 @@ C++ Builder 3	DsgnCPortCB3.bpk	CPortLibCB3.bpk
 C++ Builder 4	DsgnCPortCB4.bpk	CPortLibCB4.bpk
 C++ Builder 5	DsgnCPortCB5.bpk	CPortLibCB5.bpk
 C++ Builder 6	DsgnCPortCB6.bpk	CPortLibCB6.bpk
+Lazarus		DsgnCPort.lpk		CPortLib.lpk
 
 
 
