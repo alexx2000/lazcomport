@@ -19,6 +19,7 @@
         <CustomOptions Value="-dBorland -dVer150 -dDelphi7 -dCompiler6_Up -dPUREPASCAL"/>
       </Other>
     </CompilerOptions>
+    <Version Major="4" Minor="12"/>
     <Files Count="2">
       <Item1>
         <Filename Value="CPortReg.pas"/>
