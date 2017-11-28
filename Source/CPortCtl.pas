@@ -30,6 +30,9 @@ unit CPortCtl;
 interface
 
 uses
+{$IFDEF FPC}
+  LCLType,
+{$ENDIF}
   Classes, Controls, StdCtrls, ExtCtrls, Forms,
   Messages, Graphics, Windows, CPort, CPortEsc;
 
@@ -96,18 +99,14 @@ type
     property Text: string read GetText write SetText;
     property Style;
     property Color;
-    property Ctl3D;
     property DragCursor;
     property DragMode;
     property DropDownCount;
     property Enabled;
     property Font;
-    property ImeMode;
-    property ImeName;
     property ItemHeight;
     property ItemIndex;
     property ParentColor;
-    property ParentCtl3D;
     property ParentFont;
     property ParentShowHint;
     property PopupMenu;
@@ -173,14 +172,12 @@ type
     property Align;
     property Caption;
     property Color;
-    property Ctl3D;
     property DragCursor;
     property DragMode;
     property Enabled;
     property Font;
     property ItemIndex;
     property ParentColor;
-    property ParentCtl3D;
     property ParentFont;
     property ParentShowHint;
     property PopupMenu;
@@ -517,7 +514,6 @@ type
     property Columns;
     property ComPort;
     property Connected;
-    property Ctl3D;
     property DragCursor;
     property DragMode;
     property Emulation;
@@ -525,10 +521,7 @@ type
     property Font;
     property Force7Bit;
     property Hint;
-    property ImeMode;
-    property ImeName;
     property LocalEcho;
-    property ParentCtl3D;
     property ParentShowHint;
     property PopupMenu;
     property Rows;
@@ -567,7 +560,6 @@ type
     property OnStrRecieved;
     property OnUnhandledCode;
 {$IFDEF DELPHI_4_OR_HIGHER}
-    property OnCanResize;
     property OnConstrainedResize;
     property OnDockDrop;
     property OnEndDock;
@@ -1401,7 +1393,7 @@ begin
     FOwner.Invalidate
   else
 {$ENDIF}
-    FOwner.InvalidatePortion(Rect(Column, Row, FOwner.Columns, Row));
+    FOwner.InvalidatePortion(Classes.Rect(Column, Row, FOwner.Columns, Row));
 end;
 
 // erase screen
@@ -1422,7 +1414,7 @@ begin
     FOwner.Invalidate
   else
 {$ENDIF}
-    FOwner.InvalidatePortion(Rect(Column, Row, FOwner.Columns, FOwner.Rows))
+    FOwner.InvalidatePortion(Classes.Rect(Column, Row, FOwner.Columns, FOwner.Rows))
 end;
 
 // init buffer
@@ -1523,8 +1515,8 @@ begin
   FEmulation := teVT100orANSI;
   FColumns := 80;
   FRows := 24;
-  FCaretPos := Point(1, 1);
-  FTopLeft := Point(1, 1);
+  FCaretPos := Classes.Point(1, 1);
+  FTopLeft := Classes.Point(1, 1);
   FScrollBars := ssBoth;
   FBuffer := TComTermBuffer.Create(Self);
   FTermAttr.FrontColor := Font.Color;
@@ -1686,7 +1678,11 @@ end;
 procedure TCustomComTerminal.CMCtl3DChanged(var Message: TMessage);
 begin
   if NewStyleControls and (FBorderStyle = bsSingle) then
+{$IFDEF FPC}
+    RecreateWnd(Self);
+{$ELSE}
     RecreateWnd;
+{$ENDIF}
   inherited;
 end;
 
@@ -1778,9 +1774,11 @@ begin
     NewWidth := FFontWidth * FColumns;
     if FBorderStyle = bsSingle then
     begin
+{$IFNDEF FPC}
       if Ctl3D then
         Border := SM_CXEDGE
       else
+{$ENDIF}
         Border := SM_CXBORDER;
       NewWidth := NewWidth + 2 * GetSystemMetrics(BORDER);
     end;
@@ -1790,9 +1788,11 @@ begin
     NewHeight := FFontHeight * FRows;
     if FBorderStyle = bsSingle then
     begin
+{$IFNDEF FPC}
       if Ctl3D then
         Border := SM_CYEDGE
       else
+{$ENDIF}
         Border := SM_CYBORDER;
       NewHeight := NewHeight + 2 * GetSystemMetrics(Border);
     end;
@@ -1809,7 +1809,7 @@ begin
   with Params do
   begin
     Style := Style or BorderStyles[FBorderStyle];
-    if NewStyleControls and Ctl3D and (FBorderStyle = bsSingle) then
+    if NewStyleControls and (FBorderStyle = bsSingle) {$IFNDEF FPC}and Ctl3D{$ENDIF} then
     begin
       Style := Style and not WS_BORDER;
       ExStyle := ExStyle or WS_EX_CLIENTEDGE;
@@ -2610,7 +2610,11 @@ begin
   if FBorderStyle <> Value then
   begin
     FBorderStyle := Value;
+{$IFDEF FPC}
+    RecreateWnd(Self);
+{$ELSE}
     RecreateWnd;
+{$ENDIF}
   end;
 end;
 
@@ -2619,7 +2623,11 @@ begin
   if FScrollBars <> Value then
   begin
     FScrollBars := Value;
+{$IFDEF FPC}
+    RecreateWnd(Self);
+{$ELSE}
     RecreateWnd;
+{$ENDIF}
   end;
 end;
 

@@ -6,6 +6,10 @@
 {$X+}
 {$H+}
 
+{$IFDEF FPC}
+  {$mode delphi}
+{$ENDIF}
+
 {$IFDEF VER110}     { C++ Builder 3 }
   {$ObjExportAll On}
   {$DEFINE VER_RECOGNIZED}

@@ -35,8 +35,9 @@ type
                         CE_WaitFailed      ,    CE_HasLink         ,
                         CE_RegError        ,    CEPortNotOpen     );
 
-
-
+{$IFDEF FPC}
+  TComStateFlags = type DWORD;
+{$ENDIF}
 
   // various types
   TPort = string;
@@ -1666,7 +1667,11 @@ begin
   if not ClearCommError(FHandle, Errors, @ComStat) then
     //raise EComPort.Create
     CallException(CError_ClearComFailed, GetLastError);
+{$IFDEF FPC}
+  Result := ComStat.flag0;
+{$ELSE}
   Result := ComStat.Flags;
+{$ENDIF}
 end;
 
 // set hardware line break
