@@ -1,0 +1,473 @@
+object frmMain: TfrmMain
+  Left = 347
+  Height = 590
+  Top = 153
+  Width = 1213
+  ActiveControl = ComTerminal1
+  Caption = 'Auctor'
+  ClientHeight = 590
+  ClientWidth = 1213
+  OnClose = FormClose
+  OnCreate = FormCreate
+  LCLVersion = '1.6.5.0'
+  object ComTerminal1: TComTerminal
+    Left = 319
+    Height = 590
+    Top = 0
+    Width = 665
+    Align = alClient
+    Color = clBlack
+    ComPort = ComPort
+    Emulation = teVT100orANSI
+    Font.CharSet = RUSSIAN_CHARSET
+    Font.Color = clWhite
+    Font.Height = -15
+    Font.Name = 'Lucida Console'
+    Font.Pitch = fpFixed
+    PopupMenu = PopupMenu1
+    Rows = 100
+    ScrollBars = ssBoth
+    TabOrder = 0
+  end
+  object Panel2: TPanel
+    Left = 984
+    Height = 590
+    Top = 0
+    Width = 229
+    Align = alRight
+    ChildSizing.LeftRightSpacing = 4
+    ClientHeight = 590
+    ClientWidth = 229
+    TabOrder = 1
+    object GroupBox1: TGroupBox
+      Left = 5
+      Height = 194
+      Hint = 'a'
+      Top = 1
+      Width = 219
+      Align = alTop
+      AutoSize = True
+      Caption = ' Settings '
+      ChildSizing.LeftRightSpacing = 6
+      ChildSizing.TopBottomSpacing = 8
+      ChildSizing.HorizontalSpacing = 10
+      ChildSizing.VerticalSpacing = 4
+      ChildSizing.EnlargeHorizontal = crsHomogenousSpaceResize
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 2
+      ClientHeight = 174
+      ClientWidth = 215
+      TabOrder = 0
+      object Label1: TLabel
+        Left = 19
+        Height = 23
+        Top = 8
+        Width = 66
+        Caption = 'Port'
+        Layout = tlCenter
+        ParentColor = False
+      end
+      object Combo1: TComComboBox
+        Left = 104
+        Height = 23
+        Top = 8
+        Width = 100
+        ComPort = ComPort
+        ComProperty = cpPort
+        Text = 'COM1'
+        Style = csDropDownList
+        ItemHeight = 15
+        ItemIndex = 0
+        TabOrder = 0
+      end
+      object Label2: TLabel
+        Left = 19
+        Height = 23
+        Top = 35
+        Width = 66
+        Caption = 'Baud rate'
+        Layout = tlCenter
+        ParentColor = False
+      end
+      object Combo2: TComComboBox
+        Left = 104
+        Height = 23
+        Top = 35
+        Width = 100
+        ComPort = ComPort
+        ComProperty = cpBaudRate
+        Text = '9600'
+        Style = csDropDownList
+        ItemHeight = 15
+        ItemIndex = 7
+        TabOrder = 1
+      end
+      object Label3: TLabel
+        Left = 19
+        Height = 23
+        Top = 62
+        Width = 66
+        Caption = 'Data bits'
+        Layout = tlCenter
+        ParentColor = False
+      end
+      object Combo3: TComComboBox
+        Left = 104
+        Height = 23
+        Top = 62
+        Width = 100
+        ComPort = ComPort
+        ComProperty = cpDataBits
+        Text = '8'
+        Style = csDropDownList
+        ItemHeight = 15
+        ItemIndex = 3
+        TabOrder = 2
+      end
+      object Label4: TLabel
+        Left = 19
+        Height = 23
+        Top = 89
+        Width = 66
+        Caption = 'Stop bits'
+        Layout = tlCenter
+        ParentColor = False
+      end
+      object Combo4: TComComboBox
+        Left = 104
+        Height = 23
+        Top = 89
+        Width = 100
+        ComPort = ComPort
+        ComProperty = cpStopBits
+        Text = '1'
+        Style = csDropDownList
+        ItemHeight = 15
+        ItemIndex = 0
+        TabOrder = 3
+      end
+      object Label5: TLabel
+        Left = 19
+        Height = 23
+        Top = 116
+        Width = 66
+        Caption = 'Parity'
+        Layout = tlCenter
+        ParentColor = False
+      end
+      object Combo5: TComComboBox
+        Left = 104
+        Height = 23
+        Top = 116
+        Width = 100
+        ComPort = ComPort
+        ComProperty = cpParity
+        Text = 'None'
+        Style = csDropDownList
+        ItemHeight = 15
+        ItemIndex = 0
+        TabOrder = 4
+      end
+      object Label6: TLabel
+        Left = 19
+        Height = 23
+        Top = 143
+        Width = 66
+        Caption = 'Flow control'
+        Layout = tlCenter
+        ParentColor = False
+      end
+      object Combo6: TComComboBox
+        Left = 104
+        Height = 23
+        Top = 143
+        Width = 100
+        ComPort = ComPort
+        ComProperty = cpFlowControl
+        Text = 'None'
+        Style = csDropDownList
+        ItemHeight = 15
+        ItemIndex = 2
+        TabOrder = 5
+      end
+    end
+    object btnOpenClose: TBitBtn
+      AnchorSideLeft.Control = Panel2
+      AnchorSideLeft.Side = asrCenter
+      AnchorSideTop.Control = grbLines
+      AnchorSideTop.Side = asrBottom
+      AnchorSideBottom.Side = asrBottom
+      Left = 64
+      Height = 30
+      Top = 270
+      Width = 100
+      BorderSpacing.Top = 12
+      Caption = 'Open'
+      Constraints.MinWidth = 100
+      Kind = bkAll
+      OnClick = btnOpenCloseClick
+      TabOrder = 1
+    end
+    object grbLines: TGroupBox
+      Left = 5
+      Height = 63
+      Top = 195
+      Width = 219
+      Align = alTop
+      AutoSize = True
+      Caption = 'Modem lines'
+      ChildSizing.LeftRightSpacing = 12
+      ChildSizing.TopBottomSpacing = 12
+      ChildSizing.EnlargeHorizontal = crsHomogenousSpaceResize
+      ChildSizing.Layout = cclLeftToRightThenTopToBottom
+      ChildSizing.ControlsPerLine = 2
+      ClientHeight = 43
+      ClientWidth = 215
+      TabOrder = 2
+      object chkDTR: TCheckBox
+        Left = 37
+        Height = 19
+        Top = 12
+        Width = 42
+        Caption = 'DTR'
+        OnChange = chkDTRChange
+        TabOrder = 0
+      end
+      object chkRTS: TCheckBox
+        Left = 116
+        Height = 19
+        Top = 12
+        Width = 40
+        Caption = 'RTS'
+        OnChange = chkRTSChange
+        TabOrder = 1
+      end
+    end
+  end
+  object Panel3: TPanel
+    Left = 0
+    Height = 590
+    Top = 0
+    Width = 319
+    Align = alLeft
+    AutoSize = True
+    ChildSizing.LeftRightSpacing = 10
+    ChildSizing.TopBottomSpacing = 10
+    ChildSizing.HorizontalSpacing = 6
+    ChildSizing.VerticalSpacing = 6
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 2
+    ClientHeight = 590
+    ClientWidth = 319
+    TabOrder = 2
+    object edtSend1: TEdit
+      Left = 10
+      Height = 25
+      Top = 10
+      Width = 240
+      Constraints.MinWidth = 240
+      TabOrder = 0
+    end
+    object btnSend1: TButton
+      Left = 256
+      Height = 25
+      Top = 10
+      Width = 52
+      Caption = 'Send'
+      OnClick = btnSendClick
+      TabOrder = 1
+    end
+    object edtSend2: TEdit
+      Left = 10
+      Height = 25
+      Top = 41
+      Width = 240
+      Constraints.MinWidth = 240
+      TabOrder = 2
+    end
+    object btnSend2: TButton
+      Tag = 1
+      Left = 256
+      Height = 25
+      Top = 41
+      Width = 52
+      Caption = 'Send'
+      OnClick = btnSendClick
+      TabOrder = 3
+    end
+    object edtSend3: TEdit
+      Left = 10
+      Height = 25
+      Top = 72
+      Width = 240
+      Constraints.MinWidth = 240
+      TabOrder = 4
+    end
+    object btnSend3: TButton
+      Tag = 2
+      Left = 256
+      Height = 25
+      Top = 72
+      Width = 52
+      Caption = 'Send'
+      OnClick = btnSendClick
+      TabOrder = 5
+    end
+    object edtSend4: TEdit
+      Left = 10
+      Height = 25
+      Top = 103
+      Width = 240
+      Constraints.MinWidth = 240
+      TabOrder = 6
+    end
+    object btnSend4: TButton
+      Tag = 3
+      Left = 256
+      Height = 25
+      Top = 103
+      Width = 52
+      Caption = 'Send'
+      OnClick = btnSendClick
+      TabOrder = 7
+    end
+    object edtSend5: TEdit
+      Left = 10
+      Height = 25
+      Top = 134
+      Width = 240
+      Constraints.MinWidth = 240
+      TabOrder = 8
+    end
+    object btnSend5: TButton
+      Tag = 4
+      Left = 256
+      Height = 25
+      Top = 134
+      Width = 52
+      Caption = 'Send'
+      OnClick = btnSendClick
+      TabOrder = 9
+    end
+    object edtSend6: TEdit
+      Left = 10
+      Height = 25
+      Top = 165
+      Width = 240
+      Constraints.MinWidth = 240
+      TabOrder = 10
+    end
+    object btnSend6: TButton
+      Tag = 5
+      Left = 256
+      Height = 25
+      Top = 165
+      Width = 52
+      Caption = 'Send'
+      OnClick = btnSendClick
+      TabOrder = 11
+    end
+    object edtSend7: TEdit
+      Left = 10
+      Height = 25
+      Top = 196
+      Width = 240
+      Constraints.MinWidth = 240
+      TabOrder = 12
+    end
+    object btnSend7: TButton
+      Tag = 6
+      Left = 256
+      Height = 25
+      Top = 196
+      Width = 52
+      Caption = 'Send'
+      OnClick = btnSendClick
+      TabOrder = 13
+    end
+    object edtSend8: TEdit
+      Left = 10
+      Height = 25
+      Top = 227
+      Width = 240
+      Constraints.MinWidth = 240
+      TabOrder = 14
+    end
+    object btnSend8: TButton
+      Tag = 7
+      Left = 256
+      Height = 25
+      Top = 227
+      Width = 52
+      Caption = 'Send'
+      OnClick = btnSendClick
+      TabOrder = 15
+    end
+    object edtSend9: TEdit
+      Left = 10
+      Height = 25
+      Top = 258
+      Width = 240
+      Constraints.MinWidth = 240
+      TabOrder = 16
+    end
+    object btnSend9: TButton
+      Tag = 8
+      Left = 256
+      Height = 25
+      Top = 258
+      Width = 52
+      Caption = 'Send'
+      OnClick = btnSendClick
+      TabOrder = 17
+    end
+    object edtSend10: TEdit
+      Left = 10
+      Height = 25
+      Top = 289
+      Width = 240
+      Constraints.MinWidth = 240
+      TabOrder = 18
+    end
+    object btnSend10: TButton
+      Tag = 9
+      Left = 256
+      Height = 25
+      Top = 289
+      Width = 52
+      Caption = 'Send'
+      OnClick = btnSendClick
+      TabOrder = 19
+    end
+  end
+  object ComPort: TComPort
+    BaudRate = br9600
+    Port = 'COM1'
+    Parity.Bits = prNone
+    StopBits = sbOneStopBit
+    DataBits = dbEight
+    Events = [evRxChar, evTxEmpty, evRxFlag, evRing, evBreak, evCTS, evDSR, evError, evRLSD, evRx80Full]
+    FlowControl.OutCTSFlow = False
+    FlowControl.OutDSRFlow = False
+    FlowControl.ControlDTR = dtrDisable
+    FlowControl.ControlRTS = rtsDisable
+    FlowControl.XonXoffOut = False
+    FlowControl.XonXoffIn = False
+    StoredProps = [spBasic]
+    TriggersOnRxChar = False
+    left = 1096
+    top = 368
+  end
+  object PopupMenu1: TPopupMenu
+    left = 144
+    top = 392
+    object Copy1: TMenuItem
+      Caption = 'Copy'
+      OnClick = Copy1Click
+    end
+    object Paste1: TMenuItem
+      Caption = 'Paste'
+      OnClick = Paste1Click
+    end
+  end
+end
