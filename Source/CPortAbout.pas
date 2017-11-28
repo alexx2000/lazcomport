@@ -41,7 +41,11 @@ const
 
 implementation
 
-{$R *.DFM}
+{$IFnDEF FPC}
+  {$R *.dfm}
+{$ELSE}
+  {$R *.lfm}
+{$ENDIF}
 
 procedure ShowAbout;
 begin
