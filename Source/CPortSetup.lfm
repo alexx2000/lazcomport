@@ -1,0 +1,152 @@
+object ComSetupFrm: TComSetupFrm
+  Left = 381
+  Top = 182
+  BorderStyle = bsDialog
+  Caption = 'Setup'
+  ClientHeight = 216
+  ClientWidth = 231
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  Position = poScreenCenter
+  PixelsPerInch = 96
+  object Button1: TButton
+    Left = 70
+    Top = 184
+    Width = 75
+    Height = 25
+    Caption = 'OK'
+    Default = True
+    ModalResult = 1
+    TabOrder = 1
+  end
+  object Button2: TButton
+    Left = 150
+    Top = 184
+    Width = 75
+    Height = 25
+    Caption = 'Cancel'
+    ModalResult = 2
+    TabOrder = 2
+  end
+  object GroupBox1: TGroupBox
+    Left = 8
+    Top = 8
+    Width = 217
+    Height = 169
+    Hint = 'a'
+    Caption = ' Settings '
+    TabOrder = 0
+    object Label1: TLabel
+      Left = 6
+      Top = 10
+      Width = 19
+      Height = 13
+      Caption = 'Port'
+    end
+    object Label2: TLabel
+      Left = 6
+      Top = 34
+      Width = 46
+      Height = 13
+      Caption = 'Baud rate'
+    end
+    object Label3: TLabel
+      Left = 6
+      Top = 58
+      Width = 42
+      Height = 13
+      Caption = 'Data bits'
+    end
+    object Label4: TLabel
+      Left = 6
+      Top = 82
+      Width = 41
+      Height = 13
+      Caption = 'Stop bits'
+    end
+    object Label5: TLabel
+      Left = 6
+      Top = 106
+      Width = 26
+      Height = 13
+      Caption = 'Parity'
+    end
+    object Label6: TLabel
+      Left = 6
+      Top = 130
+      Width = 57
+      Height = 13
+      Caption = 'Flow control'
+    end
+    object Combo2: TComComboBox
+      Left = 78
+      Top = 26
+      Width = 129
+      Height = 21
+      ComProperty = cpBaudRate
+      Text = 'Custom'
+      Style = csDropDownList
+      ItemIndex = 0
+      TabOrder = 1
+    end
+    object Combo3: TComComboBox
+      Left = 78
+      Top = 50
+      Width = 129
+      Height = 21
+      ComProperty = cpDataBits
+      Text = '5'
+      Style = csDropDownList
+      ItemIndex = 0
+      TabOrder = 2
+    end
+    object Combo4: TComComboBox
+      Left = 78
+      Top = 74
+      Width = 129
+      Height = 21
+      ComProperty = cpStopBits
+      Text = '1'
+      Style = csDropDownList
+      ItemIndex = 0
+      TabOrder = 3
+    end
+    object Combo5: TComComboBox
+      Left = 78
+      Top = 98
+      Width = 129
+      Height = 21
+      ComProperty = cpParity
+      Text = 'None'
+      Style = csDropDownList
+      ItemIndex = 0
+      TabOrder = 4
+    end
+    object Combo6: TComComboBox
+      Left = 78
+      Top = 122
+      Width = 129
+      Height = 21
+      ComProperty = cpFlowControl
+      Text = 'Hardware'
+      Style = csDropDownList
+      ItemIndex = 0
+      TabOrder = 5
+    end
+    object Combo1: TComComboBox
+      Left = 78
+      Top = 2
+      Width = 129
+      Height = 21
+      ComProperty = cpPort
+      Text = 'COM1'
+      Style = csDropDownList
+      ItemIndex = 0
+      TabOrder = 0
+    end
+  end
+end
