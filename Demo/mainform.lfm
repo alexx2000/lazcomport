@@ -273,6 +273,7 @@ object frmMain: TfrmMain
         Height = 23
         Top = 23
         Width = 207
+        Filter = 'Log files|*.log'
         FilterIndex = 0
         HideDirectories = False
         ButtonWidth = 23
