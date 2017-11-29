@@ -13,6 +13,7 @@ uses
 {$R *.res}
 
 begin
+  Application.Title:= 'Auctor';
   RequireDerivedFormResource:=True;
   Application.Initialize;
   Application.CreateForm(TfrmMain, frmMain);

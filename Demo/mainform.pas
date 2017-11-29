@@ -185,11 +185,16 @@ end;
 procedure TfrmMain.FormCreate(Sender: TObject);
 var
   I, J: Integer;
+  FileName: String;
 begin
   J:= 0;
   SetLength(FSend, 10);
+  ConfigExtension:= '.ini';
   TextRec(FLog).Handle:= UnusedHandle;
-  FIni := TMemIniFile.Create(ExtractFilePath(Application.ExeName) + 'auctor.ini');
+  FileName:= ExtractFilePath(Application.ExeName) + ApplicationName + ConfigExtension;
+  if not FileExists(FileName) then FileName:= GetAppConfigFile(False);
+
+  FIni := TMemIniFile.Create(FileName);
   ComPort.Port := FIni.ReadString('Serial', 'Port', ComPort.Port);
   ComPort.BaudRate := StrToBaudRate(FIni.ReadString('Serial', 'BaudRate', '115200'));
   ComPort.FlowControl.FlowControl := StrToFlowControl(FIni.ReadString('Serial', 'FlowControl', 'None'));
