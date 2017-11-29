@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  Buttons, ExtCtrls, Menus, CPortCtl, CPort, IniFiles;
+  Buttons, ExtCtrls, Menus, EditBtn, CPortCtl, CPort, IniFiles;
 
 type
 
@@ -24,6 +24,7 @@ type
     btnSend7: TButton;
     btnSend8: TButton;
     btnSend9: TButton;
+    chkLog: TCheckBox;
     chkDTR: TCheckBox;
     chkRTS: TCheckBox;
     Combo1: TComComboBox;
@@ -45,8 +46,10 @@ type
     edtSend7: TEdit;
     edtSend8: TEdit;
     edtSend9: TEdit;
+    fneLog: TFileNameEdit;
     grbLines: TGroupBox;
-    GroupBox1: TGroupBox;
+    grbSettings: TGroupBox;
+    grbLog: TGroupBox;
     Label1: TLabel;
     Label2: TLabel;
     Label3: TLabel;
@@ -60,12 +63,16 @@ type
     procedure btnOpenCloseClick(Sender: TObject);
     procedure btnSendClick(Sender: TObject);
     procedure chkDTRChange(Sender: TObject);
+    procedure chkLogChange(Sender: TObject);
     procedure chkRTSChange(Sender: TObject);
+    procedure ComTerminal1StrRecieved(Sender: TObject; var Str: string);
     procedure Copy1Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure Paste1Click(Sender: TObject);
   private
+    FLog: TextFile;
+    FSecond: Boolean;
     FIni: TMemIniFile;
     FSend: array of TEdit;
     procedure ApplySettings;
@@ -104,6 +111,8 @@ begin
     btnOpenClose.ModalResult:= mrNone;
     SetButtonGlyph(btnOpenClose, bkOK);
   end;
+  grbLines.Enabled:= (btnOpenClose.Kind <> bkAll);
+  grbSettings.Enabled:= (btnOpenClose.Kind = bkAll);
 end;
 
 procedure TfrmMain.btnSendClick(Sender: TObject);
@@ -116,9 +125,37 @@ begin
   ComPort.SetDTR(chkDTR.Checked);
 end;
 
+procedure TfrmMain.chkLogChange(Sender: TObject);
+begin
+  if not chkLog.Checked then
+  begin
+    ComTerminal1.OnStrRecieved:= nil;
+    if TextRec(FLog).Handle <> UnusedHandle then CloseFile(FLog);
+  end
+  else try
+    AssignFile(FLog, fneLog.FileName);
+    if FileExists(fneLog.FileName) and (FSecond = False) then
+    begin
+      Append(FLog)
+    end
+    else begin
+      Rewrite(FLog);
+    end;
+    ComTerminal1.OnStrRecieved:= @ComTerminal1StrRecieved;
+  except
+    on E: Exception do MessageDlg(E.Message, mtError, [mbOK], 0, mbOK);
+  end;
+  FSecond := True;
+end;
+
 procedure TfrmMain.chkRTSChange(Sender: TObject);
 begin
   ComPort.SetRTS(chkRTS.Checked);
+end;
+
+procedure TfrmMain.ComTerminal1StrRecieved(Sender: TObject; var Str: string);
+begin
+  Write(FLog, Str);
 end;
 
 procedure TfrmMain.Copy1Click(Sender: TObject);
@@ -134,6 +171,8 @@ begin
     FIni.WriteString('Serial', 'Port', ComPort.Port);
     FIni.WriteString('Serial', 'BaudRate', BaudRateToStr(ComPort.BaudRate));
     FIni.WriteString('Serial', 'FlowControl', FlowControlToStr(ComPort.FlowControl.FlowControl));
+    FIni.WriteBool('Log', 'Enabled', chkLog.Checked);
+    FIni.WriteString('Log', 'FileName', fneLog.FileName);
     for Index:= Low(FSend) to High(FSend) do
     begin
       FIni.WriteString('Command', 'Send' + IntToStr(Index), FSend[Index].Text);
@@ -149,16 +188,20 @@ var
 begin
   J:= 0;
   SetLength(FSend, 10);
+  TextRec(FLog).Handle:= UnusedHandle;
   FIni := TMemIniFile.Create(ExtractFilePath(Application.ExeName) + 'auctor.ini');
   ComPort.Port := FIni.ReadString('Serial', 'Port', ComPort.Port);
   ComPort.BaudRate := StrToBaudRate(FIni.ReadString('Serial', 'BaudRate', '115200'));
   ComPort.FlowControl.FlowControl := StrToFlowControl(FIni.ReadString('Serial', 'FlowControl', 'None'));
 
-  for I:= 0 to GroupBox1.ControlCount - 1 do
+  fneLog.FileName:= FIni.ReadString('Log', 'FileName', EmptyStr);
+  chkLog.Checked:= FIni.ReadBool('Log', 'Enabled', False);
+
+  for I:= 0 to grbSettings.ControlCount - 1 do
   begin
-    if GroupBox1.Controls[I] is TComComboBox then
+    if grbSettings.Controls[I] is TComComboBox then
     begin
-      TComComboBox(GroupBox1.Controls[I]).UpdateSettings;
+      TComComboBox(grbSettings.Controls[I]).UpdateSettings;
     end;
   end;
 

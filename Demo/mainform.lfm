@@ -39,7 +39,7 @@ object frmMain: TfrmMain
     ClientHeight = 590
     ClientWidth = 229
     TabOrder = 1
-    object GroupBox1: TGroupBox
+    object grbSettings: TGroupBox
       Left = 5
       Height = 194
       Hint = 'a'
@@ -223,6 +223,7 @@ object frmMain: TfrmMain
       ChildSizing.ControlsPerLine = 2
       ClientHeight = 43
       ClientWidth = 215
+      Enabled = False
       TabOrder = 2
       object chkDTR: TCheckBox
         Left = 37
@@ -241,6 +242,53 @@ object frmMain: TfrmMain
         Caption = 'RTS'
         OnChange = chkRTSChange
         TabOrder = 1
+      end
+    end
+    object grbLog: TGroupBox
+      AnchorSideLeft.Control = Panel2
+      AnchorSideTop.Control = btnOpenClose
+      AnchorSideTop.Side = asrBottom
+      AnchorSideRight.Control = Panel2
+      AnchorSideRight.Side = asrBottom
+      Left = 5
+      Height = 70
+      Top = 312
+      Width = 219
+      Anchors = [akTop, akLeft, akRight]
+      AutoSize = True
+      BorderSpacing.Top = 12
+      Caption = 'Log to file'
+      ChildSizing.LeftRightSpacing = 4
+      ChildSizing.TopBottomSpacing = 4
+      ClientHeight = 50
+      ClientWidth = 215
+      TabOrder = 3
+      object fneLog: TFileNameEdit
+        AnchorSideLeft.Control = grbLog
+        AnchorSideTop.Control = chkLog
+        AnchorSideTop.Side = asrBottom
+        AnchorSideRight.Control = grbLog
+        AnchorSideRight.Side = asrBottom
+        Left = 4
+        Height = 23
+        Top = 23
+        Width = 207
+        FilterIndex = 0
+        HideDirectories = False
+        ButtonWidth = 23
+        NumGlyphs = 1
+        Anchors = [akTop, akLeft, akRight]
+        MaxLength = 0
+        TabOrder = 1
+      end
+      object chkLog: TCheckBox
+        Left = 4
+        Height = 19
+        Top = 4
+        Width = 55
+        Caption = 'Enable'
+        OnChange = chkLogChange
+        TabOrder = 0
       end
     end
   end
@@ -456,7 +504,7 @@ object frmMain: TfrmMain
     StoredProps = [spBasic]
     TriggersOnRxChar = False
     left = 1096
-    top = 368
+    top = 416
   end
   object PopupMenu1: TPopupMenu
     left = 144
