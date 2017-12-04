@@ -16,6 +16,8 @@ type
     btnOpenClose: TBitBtn;
     btnSend1: TButton;
     btnSend10: TButton;
+    btnSend11: TButton;
+    btnSend12: TButton;
     btnSend2: TButton;
     btnSend3: TButton;
     btnSend4: TButton;
@@ -38,6 +40,8 @@ type
     Copy1: TMenuItem;
     edtSend1: TEdit;
     edtSend10: TEdit;
+    edtSend11: TEdit;
+    edtSend12: TEdit;
     edtSend2: TEdit;
     edtSend3: TEdit;
     edtSend4: TEdit;
@@ -188,7 +192,7 @@ var
   FileName: String;
 begin
   J:= 0;
-  SetLength(FSend, 10);
+  SetLength(FSend, 12);
   ConfigExtension:= '.ini';
   TextRec(FLog).Handle:= UnusedHandle;
   FileName:= ExtractFilePath(Application.ExeName) + ApplicationName + ConfigExtension;

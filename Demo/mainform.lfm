@@ -488,6 +488,42 @@ object frmMain: TfrmMain
       OnClick = btnSendClick
       TabOrder = 19
     end
+    object edtSend11: TEdit
+      Left = 10
+      Height = 25
+      Top = 320
+      Width = 240
+      Constraints.MinWidth = 240
+      TabOrder = 20
+    end
+    object btnSend11: TButton
+      Tag = 10
+      Left = 256
+      Height = 25
+      Top = 320
+      Width = 52
+      Caption = 'Send'
+      OnClick = btnSendClick
+      TabOrder = 21
+    end
+    object edtSend12: TEdit
+      Left = 10
+      Height = 25
+      Top = 351
+      Width = 240
+      Constraints.MinWidth = 240
+      TabOrder = 22
+    end
+    object btnSend12: TButton
+      Tag = 11
+      Left = 256
+      Height = 25
+      Top = 351
+      Width = 52
+      Caption = 'Send'
+      OnClick = btnSendClick
+      TabOrder = 23
+    end
   end
   object ComPort: TComPort
     BaudRate = br9600
