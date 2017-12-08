@@ -122,6 +122,7 @@ end;
 procedure TfrmMain.btnSendClick(Sender: TObject);
 begin
   ComPort.WriteStr(FSend[TButton(Sender).Tag].Text + LineEnding);
+  if ComTerminal1.CanSetFocus then ComTerminal1.SetFocus;
 end;
 
 procedure TfrmMain.chkDTRChange(Sender: TObject);
