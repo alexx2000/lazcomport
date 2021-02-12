@@ -580,9 +580,7 @@ var
 
 implementation
 
-{$IFNDEF FPC}
-  {$R CPortImg.res}
-{$ENDIF}
+{$R CPortImg.res}
 
 uses
   SysUtils, Dialogs, CPortTrmSet;

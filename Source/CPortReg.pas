@@ -111,7 +111,9 @@ procedure Register;
 
 implementation
 
-{$R CPortImg.res}
+{$IFNDEF FPC}
+  {$R CPortImg.res}
+{$ENDIF}
 
 uses
   CPort, CPortCtl, CPortSetup, CPortTrmSet, CPortAbout,
