@@ -2059,7 +2059,7 @@ begin
       36: FTermAttr.FrontColor := $0080FF;          // Orange, official Cyan
       37: FTermAttr.FrontColor := clWhite;
       38: FTermAttr.FrontColor := clMaroon;         // Not official
-      39: FTermAttr.FrontColor := clGray;           // Not official
+      39: FTermAttr.FrontColor := Font.Color;       // Default foreground color
       // NEW background colors
       40: FTermAttr.BackColor := clBlack;
       41: FTermAttr.BackColor := clRed;
@@ -2070,7 +2070,7 @@ begin
       46: FTermAttr.BackColor := $0080FF;          // now Orange, Cyan
       47: FTermAttr.BackColor := clWhite;
       48: FTermAttr.BackColor := clMaroon;         // Not official
-      49: FTermAttr.BackColor := clGray;           // Not official
+      49: FTermAttr.BackColor := Color;            // Default background color
       // NEW end
     end;
   end;
