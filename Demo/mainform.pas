@@ -18,6 +18,8 @@ type
     btnSend10: TButton;
     btnSend11: TButton;
     btnSend12: TButton;
+    btnSend13: TButton;
+    btnSend14: TButton;
     btnSend2: TButton;
     btnSend3: TButton;
     btnSend4: TButton;
@@ -42,6 +44,8 @@ type
     edtSend10: TEdit;
     edtSend11: TEdit;
     edtSend12: TEdit;
+    edtSend13: TEdit;
+    edtSend14: TEdit;
     edtSend2: TEdit;
     edtSend3: TEdit;
     edtSend4: TEdit;
@@ -76,10 +80,11 @@ type
     procedure Paste1Click(Sender: TObject);
   private
     FLog: TextFile;
-    FSecond: Boolean;
     FIni: TMemIniFile;
     FSend: array of TEdit;
     procedure ApplySettings;
+    procedure LogFile(AOpen: Boolean);
+    procedure OpenCloseLogFile(AOpen, ARewrite: Boolean);
     procedure SetButtonGlyph(AButton: TBitBtn; AKind: TBitBtnKind);
   public
     { public declarations }
@@ -93,7 +98,7 @@ implementation
 {$R *.lfm}
 
 uses
-  Clipbrd;
+  Clipbrd, LazFileUtils;
 
 { TfrmMain }
 
@@ -101,6 +106,7 @@ procedure TfrmMain.btnOpenCloseClick(Sender: TObject);
 begin
   if btnOpenClose.Kind = bkAll then
   begin
+    LogFile(True);
     ApplySettings;
     ComPort.Open;
     btnOpenClose.Kind:= bkCustom;
@@ -110,6 +116,7 @@ begin
   end
   else begin
     ComPort.Close;
+    LogFile(False);
     btnOpenClose.Kind:= bkAll;
     btnOpenClose.Caption:= 'Open';
     btnOpenClose.ModalResult:= mrNone;
@@ -132,25 +139,7 @@ end;
 
 procedure TfrmMain.chkLogChange(Sender: TObject);
 begin
-  if not chkLog.Checked then
-  begin
-    ComTerminal1.OnStrRecieved:= nil;
-    if TextRec(FLog).Handle <> UnusedHandle then CloseFile(FLog);
-  end
-  else try
-    AssignFile(FLog, fneLog.FileName);
-    if FileExists(fneLog.FileName) and (FSecond = False) then
-    begin
-      Append(FLog)
-    end
-    else begin
-      Rewrite(FLog);
-    end;
-    ComTerminal1.OnStrRecieved:= @ComTerminal1StrRecieved;
-  except
-    on E: Exception do MessageDlg(E.Message, mtError, [mbOK], 0, mbOK);
-  end;
-  FSecond := True;
+  OpenCloseLogFile(chkLog.Checked, True);
 end;
 
 procedure TfrmMain.chkRTSChange(Sender: TObject);
@@ -193,7 +182,7 @@ var
   FileName: String;
 begin
   J:= 0;
-  SetLength(FSend, 12);
+  SetLength(FSend, 14);
   ConfigExtension:= '.ini';
   TextRec(FLog).Handle:= UnusedHandle;
   FileName:= ExtractFilePath(Application.ExeName) + ApplicationName + ConfigExtension;
@@ -204,9 +193,6 @@ begin
   ComPort.BaudRate := StrToBaudRate(FIni.ReadString('Serial', 'BaudRate', '115200'));
   ComPort.FlowControl.FlowControl := StrToFlowControl(FIni.ReadString('Serial', 'FlowControl', 'None'));
 
-  fneLog.FileName:= FIni.ReadString('Log', 'FileName', EmptyStr);
-  chkLog.Checked:= FIni.ReadBool('Log', 'Enabled', False);
-
   for I:= 0 to grbSettings.ControlCount - 1 do
   begin
     if grbSettings.Controls[I] is TComComboBox then
@@ -214,6 +200,9 @@ begin
       TComComboBox(grbSettings.Controls[I]).UpdateSettings;
     end;
   end;
+
+  fneLog.FileName:= FIni.ReadString('Log', 'FileName', EmptyStr);
+  chkLog.State:= TCheckBoxState(FIni.ReadInteger('Log', 'Enabled', Integer(cbUnchecked)));
 
   for I:= 0 to Panel3.ControlCount - 1 do
   begin
@@ -241,6 +230,40 @@ begin
   Combo5.ApplySettings;
   Combo6.ApplySettings;
   ComPort.EndUpdate;
+end;
+
+procedure TfrmMain.LogFile(AOpen: Boolean);
+begin
+  if chkLog.Checked then
+  begin
+    OpenCloseLogFile(AOpen, False);
+  end;
+end;
+
+procedure TfrmMain.OpenCloseLogFile(AOpen, ARewrite: Boolean);
+var
+  FileName: String;
+begin
+  if not AOpen then
+  begin
+    ComTerminal1.OnStrRecieved:= nil;
+    if TextRec(FLog).Handle <> UnusedHandle then CloseFile(FLog);
+  end
+  else try
+    FileName:= ExtractFileNameWithoutExt(fneLog.FileName);
+    FileName:= FileName + '-' + Combo1.Text + ExtractFileExt(fneLog.FileName);
+    AssignFile(FLog, FileName);
+    if FileExists(FileName) and (ARewrite = False) then
+    begin
+      Append(FLog)
+    end
+    else begin
+      Rewrite(FLog);
+    end;
+    ComTerminal1.OnStrRecieved:= @ComTerminal1StrRecieved;
+  except
+    on E: Exception do MessageDlg(E.Message, mtError, [mbOK], 0, mbOK);
+  end;
 end;
 
 procedure TfrmMain.SetButtonGlyph(AButton: TBitBtn; AKind: TBitBtnKind);
