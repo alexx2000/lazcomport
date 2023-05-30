@@ -42,7 +42,7 @@ type
   // various types
   TPort = string;
   TBaudRate = (brCustom, br110, br300, br600, br1200, br2400, br4800, br9600, br14400,
-                br19200, br38400, br56000, br57600, br115200, br128000, br256000);
+                br19200, br38400, br56000, br57600, br115200, br128000, br256000, br1500000);
   TStopBits = (sbOneStopBit, sbOne5StopBits, sbTwoStopBits);
   TDataBits = (dbFive, dbSix, dbSeven, dbEight);
   TParityBits = (prNone, prOdd, prEven, prMark, prSpace);
@@ -1488,7 +1488,7 @@ const
   CBaudRate: array[TBaudRate] of Integer =
     (0, CBR_110, CBR_300, CBR_600, CBR_1200, CBR_2400, CBR_4800, CBR_9600,
      CBR_14400, CBR_19200, CBR_38400, CBR_56000, CBR_57600, CBR_115200,
-     CBR_128000, CBR_256000);
+     CBR_128000, CBR_256000, 1500000);
   CDataBits: array[TDataBits] of Integer = (5, 6, 7, 8);
   CControlRTS: array[TRTSFlowControl] of Integer =
     (RTS_CONTROL_DISABLE shl 12,
@@ -3588,7 +3588,7 @@ function BaudRateToStr(BaudRate: TBaudRate): string;
 const
   BaudRateStrings: array[TBaudRate] of string = ('Custom', '110', '300', '600',
     '1200', '2400', '4800', '9600', '14400', '19200', '38400', '56000', '57600',
-    '115200', '128000', '256000');
+    '115200', '128000', '256000', '1500000');
 begin
   Result := BaudRateStrings[BaudRate];
 end;
