@@ -533,7 +533,7 @@ object frmMain: TfrmMain
       TabOrder = 24
     end
     object btnSend13: TButton
-      Tag = 11
+      Tag = 12
       Left = 256
       Height = 25
       Top = 382
@@ -551,7 +551,7 @@ object frmMain: TfrmMain
       TabOrder = 26
     end
     object btnSend14: TButton
-      Tag = 11
+      Tag = 13
       Left = 256
       Height = 25
       Top = 413
